@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:recipely/utils/bloc_global/bloc_global.dart';
+import 'package:recipely/utils/constants/my_constants.dart';
 import 'package:recipely/viewmodel/search_screen/bloc_search_screen.dart';
 
 class SearchScreen extends StatelessWidget {
   SearchScreen({super.key});
 
-  late BlocSearchScreen bloc;
-
   @override
   Widget build(BuildContext context) {
-    // INIT BLOC
-    bloc = BlocSearchScreen(context: context);
-
+    blocSearchScreen.viewModel.context = context;
     return Scaffold(
       appBar: _appBar(),
       backgroundColor: Colors.white,
@@ -32,9 +29,9 @@ class SearchScreen extends StatelessWidget {
 
   Widget _body(BuildContext context) {
     return StreamBuilder<Object>(
-        stream: bloc.stateStream,
+        stream: blocSearchScreen.stateStream,
         builder: (context, snapshot) {
-          return bloc.viewModel.isLoading
+          return blocSearchScreen.viewModel.isLoading
               ? const Center(
                   child: CircularProgressIndicator(),
                 )
@@ -52,24 +49,50 @@ class SearchScreen extends StatelessWidget {
   }
 
   _inputField() {
-    return AnimatedContainer(
-      duration: const Duration(seconds: 2),
-      curve: Curves.ease,
-      width: bloc.viewModel.emailPasswordBoxWidth,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-        child: TextField(
-          controller: bloc.searchController,
-          decoration: InputDecoration(
-              border: OutlineInputBorder(
-                borderSide: const BorderSide(
-                  color: Colors.black12,
-                ),
-                borderRadius: BorderRadius.circular(12.0),
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
+      child: Row(
+        children: [
+          //////////////////////////////////////////////////////////////////////
+          /// SEARCH
+          //////////////////////////////////////////////////////////////////////
+          Expanded(
+            child: TextField(
+              controller: blocSearchScreen.searchController,
+              decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderSide: const BorderSide(
+                      color: Colors.black12,
+                    ),
+                    borderRadius: BorderRadius.circular(12.0),
+                  ),
+                  prefixIcon: const Icon(Icons.search_sharp),
+                  hintText: 'Search...'),
+              onChanged: (value) {
+                blocSearchScreen.eventSink.add(EnumsSearchScreen.search);
+              },
+            ),
+          ),
+          //////////////////////////////////////////////////////////////////////
+          /// FILTER
+          //////////////////////////////////////////////////////////////////////
+          Container(
+            margin: const EdgeInsets.symmetric(horizontal: 16.0),
+            padding: const EdgeInsets.all(4.0),
+            decoration: BoxDecoration(
+                color: MyConstants.splashScreenBackground,
+                borderRadius: BorderRadius.circular(12.0)),
+            child: IconButton(
+              onPressed: () {
+                blocSearchScreen.eventSink.add(EnumsSearchScreen.showFilters);
+              },
+              icon: const Icon(
+                Icons.filter_list_alt,
+                color: Colors.white,
               ),
-              prefixIcon: const Icon(Icons.search_sharp),
-              hintText: 'Search...'),
-        ),
+            ),
+          )
+        ],
       ),
     );
   }
@@ -78,29 +101,57 @@ class SearchScreen extends StatelessWidget {
     return Expanded(
       child: ListView.builder(
           shrinkWrap: true,
-          itemCount: bloc.viewModel.foodSnapshot!.docs.length,
+          itemCount: blocSearchScreen.viewModel.filteredFoodList.length,
           itemBuilder: (context, index) {
-            return ListTile(
-              contentPadding: const EdgeInsets.all(6.0),
-              title: Text(
-                  bloc.viewModel.foodSnapshot!.docs[index]['name'].toString()),
-              subtitle: Row(
+            return Card(
+              elevation: 0.5,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16.0)),
+              margin: const EdgeInsets.symmetric(vertical: 6.0),
+              child: Row(
                 children: [
-                  const Icon(
-                    Icons.person,
-                    size: 14.0,
+                  Container(
+                    width: blocGlobal!.viewModel!.deviceWidth! * 0.2,
+                    height: blocGlobal!.viewModel!.deviceWidth! * 0.2,
+                    margin: const EdgeInsets.symmetric(
+                        vertical: 6.0, horizontal: 8.0),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12.0),
+                      image: DecorationImage(
+                        image: AssetImage(
+                          'assets/$index.jpeg',
+                        ),
+                        fit: BoxFit.fill,
+                      ),
+                    ),
                   ),
-                  Text(
-                    bloc.viewModel.foodSnapshot!.docs[index]['chef'],
-                    style: const TextStyle(fontSize: 12.0),
-                  )
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        blocSearchScreen.viewModel.filteredFoodList[index].name
+                            .toString(),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: Row(
+                          children: [
+                            const Icon(
+                              Icons.person,
+                              size: 14.0,
+                            ),
+                            Text(
+                              blocSearchScreen
+                                  .viewModel.filteredFoodList[index].chef
+                                  .toString(),
+                              style: const TextStyle(fontSize: 12.0),
+                            )
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ],
-              ),
-              leading: Image.asset(
-                'assets/$index.jpeg',
-                fit: BoxFit.fill,
-                height: blocGlobal!.viewModel!.deviceHeight! * 0.1,
-                width: blocGlobal!.viewModel!.deviceWidth! * 0.2,
               ),
             );
           }),

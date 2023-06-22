@@ -1,13 +1,24 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:recipely/data_models/dm_categories.dart';
+import 'package:recipely/data_models/dm_cuisines.dart';
+import 'package:recipely/data_models/dm_foods.dart';
 
 class ViewModelSearchScreen {
-  BuildContext context;
+  late BuildContext context;
+
   double emailPasswordBoxWidth = 0;
   double loginButtonWidth = 0;
   double socialButtonsWidth = 0;
   bool isLoading = false;
-  QuerySnapshot? foodSnapshot;
+  bool isCategoriesLoading = false;
 
-  ViewModelSearchScreen({required this.context});
+  /// LISTS
+  List<DataModelFoods> foodsList = [];
+  List<DataModelFoods> filteredFoodList = [];
+  List<DataModelCategories> categoriesList = [];
+  List<DataModelCuisines> cuisinesList = [];
+
+  /// FILTERS
+  List<int> appliedCategoriesFilterList = [];
+  List<int> appliedCuisineFilterList = [];
 }
