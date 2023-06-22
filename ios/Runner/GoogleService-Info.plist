@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>113844480385-ctk6paqh3lqq8dav8i55hspvctv51oik.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.113844480385-ctk6paqh3lqq8dav8i55hspvctv51oik</string>
+	<key>API_KEY</key>
+	<string>AIzaSyC2d8LpGM2juZLkCD6ze9z8jiVhLyGZKbY</string>
+	<key>GCM_SENDER_ID</key>
+	<string>113844480385</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.rv.recipely</string>
+	<key>PROJECT_ID</key>
+	<string>tanbits-dc57e</string>
+	<key>STORAGE_BUCKET</key>
+	<string>tanbits-dc57e.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:113844480385:ios:d04d3b465d0e7de9a32080</string>
+</dict>
+</plist>

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "113844480385",
+    "project_id": "tanbits-dc57e",
+    "storage_bucket": "tanbits-dc57e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:113844480385:android:92d2d212a36eef08a32080",
+        "android_client_info": {
+          "package_name": "com.rv.recipely"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "113844480385-9c3vbjap385hjoesd8gp31foa22vqnk1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC6_d8ae7A_8f9s8EAgetpOiGw8-uIlVng"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "113844480385-9c3vbjap385hjoesd8gp31foa22vqnk1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
