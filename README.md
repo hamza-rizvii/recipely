@@ -2,6 +2,9 @@
 
 A new Flutter mobile application that shows a list of recipes from Firebase.
 
+### CREDENTIALS ###
+email => user@tanbits.com
+paswd => 123456
 
 
 
